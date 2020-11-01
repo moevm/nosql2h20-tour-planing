@@ -8,7 +8,7 @@
   
 <hr>
 
-`Запуск пректа:`<br>
+`Запуск проекта:`<br>
 <li>java -jar target/tour-planing-0.0.1-SNAPSHOT.war<br>
   
 <hr>
