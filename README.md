@@ -10,6 +10,8 @@
 
 `Запуск пректа:`<br>
 <li>java -jar target/tour-planing-0.0.1-SNAPSHOT.war<br>
-Пример запуска:<br>
+  
+<hr>
+  
+`Пример запуска`<br>
 
-[Смотреть видео]:()
