@@ -14,5 +14,5 @@
 <hr>
   
 `Пример запуска`<br>
-[![Alt text for your video](https://img.youtube.com/vi/T-D1KVIuvjA/0.jpg)](https://youtu.be/zXeiX86ScWg)
+[![Alt text for your video](https://img.youtube.com/vi/T-D1KVIuvjA/0.jpg)](https://youtu.be/qQYy9sstuKU)
 
