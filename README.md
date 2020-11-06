@@ -3,7 +3,7 @@
 
 `Сборка проекта`<br>
 
-  <li>В файле /tour-planing/src/main/java/com/nosql2h20/tourplaning/config/Neo4jConfig.java поменять настройки подключения к бд<br>
+  <li>В файле application.properties поменять настройки подключения к бд<br>
   <li> mvn package
   
 <hr>
