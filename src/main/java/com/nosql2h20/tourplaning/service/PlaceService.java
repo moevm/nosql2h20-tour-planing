@@ -1,11 +1,16 @@
 package com.nosql2h20.tourplaning.service;
 
+import com.nosql2h20.tourplaning.entity.Path;
 import com.nosql2h20.tourplaning.entity.Place;
+import com.nosql2h20.tourplaning.model.NewPlaceDTO;
 import com.nosql2h20.tourplaning.model.PlaceDTO;
+import com.nosql2h20.tourplaning.repository.IPathRepository;
 import com.nosql2h20.tourplaning.repository.IPlaceRepository;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -13,24 +18,42 @@ import java.util.stream.Collectors;
 public class PlaceService {
 
     private final IPlaceRepository repository;
+    private IPathRepository pathRepository;
 
-    public PlaceService(IPlaceRepository repository) {
+    public PlaceService(IPlaceRepository repository, IPathRepository pathRepository) {
         this.repository = repository;
+        this.pathRepository = pathRepository;
     }
 
-    public PlaceDTO savePlace(PlaceDTO placeDto) {
-        var newPlace = new Place(placeDto.getName(), placeDto.getDescription(), placeDto.getImageUrl(), placeDto.getLatitude(), placeDto.getLongitude(), placeDto.getAddress());
+    public PlaceDTO savePlace(NewPlaceDTO placeDto) {
+        var savedPlace = repository.save(new Place(placeDto.getName(), placeDto.getDescription(),
+                placeDto.getImageUrl(), placeDto.getLatitude(), placeDto.getLongitude(), placeDto.getAddress()));
 
-        repository.save(newPlace);
+        var currentPlaceIds = placeDto.getPaths().keySet();
+        var places = (List<Place>)  repository.findAllById(currentPlaceIds);
 
-        return mapPlace(newPlace);
+        var paths = new ArrayList<Path>();
+        placeDto.getPaths().forEach((x, y) ->
+                {
+                    var f = places.stream().filter(z -> z.getId() == x).findFirst();
+                    paths.add(new Path(y.getName(), y.getDistance(), savedPlace, f.get()));
+                }
+                );
+        pathRepository.saveAll(paths);
+
+        return mapPlace(savedPlace);
     }
 
     public PlaceDTO getPlaceById(Long id) {
-        var company = repository.findById(id);
-        var place = company.get();
+        var place = repository.findById(id).get();
 
         return mapPlace(place);
+    }
+
+    public List<PlaceDTO> getAll() {
+        var allPlaces = (List<Place>) repository.findAll();
+
+        return allPlaces.stream().map(this::mapPlace).collect(Collectors.toList());
     }
 
     public void deletePlaceById(Long id) {
@@ -61,8 +84,7 @@ public class PlaceService {
                 place.getAddress(),
                 place.getPlaces()
                         .stream()
-                        .map(x -> new PlaceDTO(x.getId(), x.getName(), x.getDescription(),
-                                x.getImageUrl(),x.getLatitude(),x.getLongitude(),x.getAddress()))
+                        .map(Place::getId)
                         .collect(Collectors.toList())
         );
     }

@@ -9,9 +9,9 @@ import java.util.List;
 @Data
 public class PlaceDTO {
 
-    public PlaceDTO(Long id, String name, String description, String imageUrl, double latitude, double longitude, String address, List<PlaceDTO> connectedPlaces) {
+    public PlaceDTO(Long id, String name, String description, String imageUrl, double latitude, double longitude, String address, List<Long> connectedPlaces) {
         this(id, name, description, imageUrl, latitude, longitude, address);
-        this.connectedPlaces = connectedPlaces;
+        this.connectedPlaceIds = connectedPlaces;
     }
 
     public PlaceDTO(Long id, String name, String description, String imageUrl, double latitude, double longitude, String address) {
@@ -32,5 +32,5 @@ public class PlaceDTO {
     @Getter @Setter private double longitude;
     @Getter @Setter private String address;
 
-    @Getter @Setter private List<PlaceDTO> connectedPlaces;
+    @Getter @Setter private List<Long> connectedPlaceIds;
 }
