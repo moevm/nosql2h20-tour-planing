@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="/public/css/style.css" media="screen"/>
     <script type="text/javascript" src="/public/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="/public/js/viva.js"></script>
     <script type="text/javascript" src="/public/js/main.js"></script>
-    <title>HomePage</title>
+    <title>Neo4j</title>
 </head>
 <body>
-<div class="parent">
-    <div class="block" id="bl">
-        <h1>Hello World</h1>
-        <h2 id="neo4j">Test Neo4j: </h2>
-        <h2 id="mongo">Test MongoDB: </h2>
-    </div>
+<div class="container">
+        <p>Name</p><input type="text" id="placeName" placeholder="Enter place name"><br>
+        <p>Address</p><input type="text" id="address" placeholder="Enter address"><br>
+        <p>Coordinates</p><input type="number" id="longitude" placeholder="Enter longitude"> <input type="number" id="latitude" placeholder="Enter latitude"><br>
+        <p>Description</p><input type="text" id="description" placeholder="Enter description"><br><br>
+        <p>Image url</p><input type="text" id="imageUrl" placeholder="Enter image url"><br><br>
+        <p>Places to connect with distance by comma separate, format "place name-distance(in meters)", example "Исакиевский собор-500,Казанский собор-400" </p><input type="text" id="connectedPlaces" placeholder="Enter places with distance"><br><br>
+        <button onclick="addPlace()">Add new place</button>
 </div>
 </body>
 </html>
