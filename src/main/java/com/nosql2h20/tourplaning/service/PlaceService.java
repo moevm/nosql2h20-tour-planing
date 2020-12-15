@@ -27,21 +27,18 @@ public class PlaceService {
 
     public PlaceDTO savePlace(NewPlaceDTO placeDto) {
         var savedPlace = repository.save(new Place(placeDto.getName(), placeDto.getDescription(),
-                placeDto.getImageUrl(), placeDto.getLatitude(), placeDto.getLongitude(), placeDto.getAddress()));
-
-        var currentPlaceIds = placeDto.getPaths().keySet();
-        var places = (List<Place>)  repository.findAllById(currentPlaceIds);
+                placeDto.getImageUrl(), placeDto.getLatitude(), placeDto.getLongitude(), placeDto.getAddress()), 0);
 
         var paths = new ArrayList<Path>();
         placeDto.getPaths().forEach((x, y) ->
                 {
-                    var f = places.stream().filter(z -> z.getId() == x).findFirst();
-                    paths.add(new Path(y.getName(), y.getDistance(), savedPlace, f.get()));
+                    var place = repository.findById(x).get();
+                    paths.add(new Path(y.getName(), y.getDistance(), savedPlace, place));
                 }
                 );
         pathRepository.saveAll(paths);
 
-        return mapPlace(savedPlace);
+        return getPlaceById(savedPlace.getId());
     }
 
     public PlaceDTO getPlaceById(Long id) {

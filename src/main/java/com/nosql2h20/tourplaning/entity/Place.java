@@ -13,6 +13,7 @@ import static org.neo4j.ogm.annotation.Relationship.UNDIRECTED;
 
 @Data
 @NodeEntity
+@Getter @Setter
 public class Place {
     public Place(String name, String description, String imageUrl, double latitude, double longitude, String address) {
         this.name = name;
@@ -23,13 +24,13 @@ public class Place {
         this.address = address;
     }
 
-    @Getter @Setter @Id @GeneratedValue private Long id;
-    @Getter @Setter private String name;
-    @Getter @Setter private String description;
-    @Getter @Setter private String imageUrl;
-    @Getter @Setter private double latitude;
-    @Getter @Setter private double longitude;
-    @Getter @Setter private String address;
+    @Id @GeneratedValue private Long id;
+    private String name;
+    private String description;
+    private String imageUrl;
+    private double latitude;
+    private double longitude;
+    private String address;
 
     @Relationship(type = "path", direction = UNDIRECTED)
     private List<Place> places = new ArrayList<>();

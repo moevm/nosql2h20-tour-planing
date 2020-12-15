@@ -7,6 +7,7 @@ import lombok.Setter;
 import java.util.List;
 
 @Data
+@Getter @Setter
 public class PlaceDTO {
 
     public PlaceDTO(Long id, String name, String description, String imageUrl, double latitude, double longitude, String address, List<Long> connectedPlaces) {
@@ -24,13 +25,13 @@ public class PlaceDTO {
         this.address = address;
     }
 
-    @Getter @Setter private Long id;
-    @Getter @Setter private String name;
-    @Getter @Setter private String description;
-    @Getter @Setter private String imageUrl;
-    @Getter @Setter private double latitude;
-    @Getter @Setter private double longitude;
-    @Getter @Setter private String address;
+    private Long id;
+    private String name;
+    private String description;
+    private String imageUrl;
+    private double latitude;
+    private double longitude;
+    private String address;
 
-    @Getter @Setter private List<Long> connectedPlaceIds;
+    private List<Long> connectedPlaceIds;
 }

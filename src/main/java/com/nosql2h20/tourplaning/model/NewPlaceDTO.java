@@ -5,12 +5,13 @@ import lombok.Setter;
 
 import java.util.HashMap;
 
+@Getter @Setter
 public class NewPlaceDTO {
-    @Getter @Setter private String name;
-    @Getter @Setter private String description;
-    @Getter @Setter private String imageUrl;
-    @Getter @Setter private double latitude;
-    @Getter @Setter private double longitude;
-    @Getter @Setter private String address;
-    @Getter @Setter private HashMap<Long, NewPathDTO> paths;
+    private String name;
+    private String description;
+    private String imageUrl;
+    private double latitude;
+    private double longitude;
+    private String address;
+    private HashMap<Long, NewPathDTO> paths;
 }
