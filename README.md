@@ -16,3 +16,5 @@
 `Пример запуска`<br>
 [![Alt text for your video](https://img.youtube.com/vi/T-D1KVIuvjA/0.jpg)](https://youtu.be/qQYy9sstuKU)
 
+## Хранение и представление скринкаст
+[![Alt text for your video](https://img.gazeta.ru/files3/759/13195759/0_tm5Pt7JvxEaJOYT8-pic4_zoom-1500x1500-41737.jpg)](https://youtu.be/nDu3sgFyBcw)
