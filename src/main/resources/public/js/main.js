@@ -19,11 +19,15 @@ function displayAllPlaces(json) {
     json.forEach(val => {
         graph.addNode(val.name, {description: val.description, longitude: val.longitude, latitude: val.latitude, imageUrl: val.imageUrl, address: val.address});
     });
-    for (let i = 0; i < json.length; i++) {
-        for (let j = 1; j < json.length; j++) {
-            graph.addLink(json[i].name, json[j].name);
-        }
-    }
+    json.forEach(val => {
+        val.connectedPlaceIds.forEach(id => {
+            let node = json.find(x => x.id === id);
+            if (node === null || node === undefined) {
+                return;
+            }
+            graph.addLink(val.name, node.name);
+        })
+    });
 
     const nodeSize = 30;
     let graphics = Viva.Graph.View.svgGraphics();

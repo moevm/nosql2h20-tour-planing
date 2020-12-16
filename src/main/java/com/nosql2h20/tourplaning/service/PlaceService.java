@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,8 +50,11 @@ public class PlaceService {
 
     public List<PlaceDTO> getAll() {
         var allPlaces = (List<Place>) repository.findAll();
+        var allPaths = (List<Path>) pathRepository.findAll();
+        var map = allPaths.stream()
+                .collect(Collectors.groupingBy(x -> x.getFirstPlace().getId()));
 
-        return allPlaces.stream().map(this::mapPlace).collect(Collectors.toList());
+        return allPlaces.stream().map(x -> mapPlace(x, map, allPlaces)).collect(Collectors.toList());
     }
 
     public void deletePlaceById(Long id) {
@@ -84,5 +88,24 @@ public class PlaceService {
                         .map(Place::getId)
                         .collect(Collectors.toList())
         );
+    }
+
+    private PlaceDTO mapPlace(Place place, Map<Long, List<Path>> map, List<Place> places) {
+        return new PlaceDTO(place.getId(),
+                place.getName(),
+                place.getDescription(),
+                place.getImageUrl(),
+                place.getLatitude(),
+                place.getLongitude(),
+                place.getAddress(),
+                places
+                        .stream()
+                        .filter(x -> map.containsKey(place.getId()))
+                        .map(x -> map.get(place.getId()).stream().map(y -> y.getSecondPlace().getId()).collect(Collectors.toList())
+                        )
+                        .flatMap(List::stream)
+                        .distinct()
+                        .collect(Collectors.toList()
+        ));
     }
 }
